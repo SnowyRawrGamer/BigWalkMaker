@@ -19,6 +19,6 @@ public sealed class PlacementController : MonoBehaviour
     {
         if (SelectedPrefab is null || Camera.main is null) return;
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out var hit, 500f)) Object.Instantiate(SelectedPrefab, hit.point, Quaternion.identity);
+        if (Physics.Raycast(ray, out var hit, 500f)) UnityEngine.Object.Instantiate(SelectedPrefab, hit.point, Quaternion.identity);
     }
 }
