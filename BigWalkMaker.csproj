@@ -7,17 +7,18 @@
     <AssemblyName>BigWalkMaker</AssemblyName>
     <RootNamespace>BigWalkMaker</RootNamespace>
     <DefineConstants>$(DefineConstants);IL2CPP</DefineConstants>
+    <GameDir Condition="'$(GameDir)' == ''">$(GAME_DIR)</GameDir>
   </PropertyGroup>
-  <PropertyGroup>
-    <BigWalkManagedDir Condition="'$(BIGWALK_MANAGED_DIR)' != ''">$(BIGWALK_MANAGED_DIR)</BigWalkManagedDir>
-    <BepInExRoot Condition="'$(BEPINEX_ROOT)' != ''">$(BEPINEX_ROOT)</BepInExRoot>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="BepInEx.Core"><HintPath>$(BepInExRoot)/core/BepInEx.Core.dll</HintPath></Reference>
-    <Reference Include="BepInEx.Unity.IL2CPP"><HintPath>$(BepInExRoot)/core/BepInEx.Unity.IL2CPP.dll</HintPath></Reference>
-    <Reference Include="Il2CppInterop.Runtime"><HintPath>$(BepInExRoot)/interop/Il2CppInterop.Runtime.dll</HintPath></Reference>
-    <Reference Include="UnityEngine.CoreModule"><HintPath>$(BigWalkManagedDir)/UnityEngine.CoreModule.dll</HintPath></Reference>
-    <Reference Include="UnityEngine.IMGUIModule"><HintPath>$(BigWalkManagedDir)/UnityEngine.IMGUIModule.dll</HintPath></Reference>
-    <Reference Include="UnityEngine.PhysicsModule"><HintPath>$(BigWalkManagedDir)/UnityEngine.PhysicsModule.dll</HintPath></Reference>
+    <PackageReference Include="BepInEx.Unity.IL2CPP" Version="6.0.0-pre.2" PrivateAssets="all" />
+    <PackageReference Include="Il2CppInterop.Runtime" Version="1.5.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InteropAssemblies Include="$(GameDir)/BepInEx/interop/*.dll" />
+    <CoreAssemblies Include="$(GameDir)/BepInEx/core/*.dll" />
+    <Reference Include="%(InteropAssemblies.Filename)"><HintPath>%(InteropAssemblies.Identity)</HintPath><Private>False</Private></Reference>
+    <Reference Include="%(CoreAssemblies.Filename)"><HintPath>%(CoreAssemblies.Identity)</HintPath><Private>False</Private></Reference>
   </ItemGroup>
 </Project>
