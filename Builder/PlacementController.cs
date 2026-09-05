@@ -5,7 +5,7 @@ namespace BigWalkMaker.Builder;
 public sealed class PlacementController : MonoBehaviour
 {
     public float FlySpeed = 8f;
-    public GameObject? SelectedPrefab { get; set; }
+    public GameObject SelectedPrefab { get; set; }
 
     private void Update()
     {
