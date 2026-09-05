@@ -19,7 +19,7 @@ public sealed class LevelData
         // The builder should load a clean sandbox containing only this starter platform.
         return level;
     }
-    public static LevelData? Load(string file) => File.Exists(Path.Combine(DirectoryPath, file)) ? JsonSerializer.Deserialize<LevelData>(File.ReadAllText(Path.Combine(DirectoryPath, file))) : null;
+    public static LevelData Load(string file) => File.Exists(Path.Combine(DirectoryPath, file)) ? JsonSerializer.Deserialize<LevelData>(File.ReadAllText(Path.Combine(DirectoryPath, file))) : null;
     public static void Import(string json) { var level = JsonSerializer.Deserialize<LevelData>(json); if (level != null) Save(level); }
     public static void Save(LevelData level) { Directory.CreateDirectory(DirectoryPath); File.WriteAllText(Path.Combine(DirectoryPath, level.Name + ".json"), JsonSerializer.Serialize(level, new JsonSerializerOptions { WriteIndented = true })); }
 }
