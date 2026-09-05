@@ -1,5 +1,6 @@
 using BepInEx;
 using BepInEx.Unity.IL2CPP;
+using Il2CppInterop.Runtime.Injection;
 using BigWalkMaker.Builder;
 using BigWalkMaker.Logic;
 using BigWalkMaker.UI;
@@ -15,6 +16,10 @@ public sealed class Plugin : BasePlugin
 
     public override void Load()
     {
+        ClassInjector.RegisterTypeInIl2Cpp<MainMenuPatch>();
+        ClassInjector.RegisterTypeInIl2Cpp<PlacementController>();
+        ClassInjector.RegisterTypeInIl2Cpp<TriggerSystem>();
+
         AddComponent<MainMenuPatch>();
         AddComponent<PlacementController>();
         AddComponent<TriggerSystem>();
