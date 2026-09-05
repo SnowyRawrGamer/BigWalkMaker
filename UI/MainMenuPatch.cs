@@ -14,9 +14,24 @@ public sealed class MainMenuPatch : MonoBehaviour
 
     private void OnGUI()
     {
-        if (!_showManager) return;
+        if (!_showManager)
+        {
+            if (GUI.Button(new Rect(20, 20, 160, 45), "Custom Levels"))
+            {
+                _showManager = true;
+            }
+            return;
+        }
+
         GUILayout.BeginArea(new Rect(80, 80, 700, 560), GUI.skin.window);
+        GUILayout.BeginHorizontal();
         GUILayout.Label("Custom Levels");
+        if (GUILayout.Button("X", GUILayout.Width(30)))
+        {
+            _showManager = false;
+        }
+        GUILayout.EndHorizontal();
+
         foreach (var level in LevelData.ListSavedLevels())
         {
             GUILayout.BeginHorizontal();
@@ -25,6 +40,7 @@ public sealed class MainMenuPatch : MonoBehaviour
             if (GUILayout.Button("Edit", GUILayout.Width(80))) LevelData.Load(level);
             GUILayout.EndHorizontal();
         }
+
         _newLevelName = GUILayout.TextField(_newLevelName);
         if (GUILayout.Button("Create New Level")) LevelData.Create(_newLevelName);
         GUILayout.Label("Import via Code / JSON");
